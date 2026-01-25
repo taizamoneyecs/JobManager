@@ -1,26 +1,21 @@
-using FrontEnd.Data;
-
+//sets the app upp, merges configurations, and starts the web server
 var builder = WebApplication.CreateBuilder(args);
 
+//registers services for dependency injection ~ data access, UI rendering, etc.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-builder.Services.AddHttpClient<WeatherForecastClient>(c =>
-{
-    var url = builder.Configuration["WEATHER_URL"] 
-        ?? throw new InvalidOperationException("WEATHER_URL is not set");
-
-    c.BaseAddress = new(url);
-});
-
+//finalised the configuration and starts the app
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
+//error handling and security settings
+if (!app.Environment.IsDevelopment())// if not in development environment
 {
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();
+    app.UseExceptionHandler("/Error");//redirects to error page on exceptions
+    app.UseHsts();//enables HTTP Strict Transport Security for enhanced security
 }
 
+//middleware pipeline configuration -defines how HTTP requests are handled
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
