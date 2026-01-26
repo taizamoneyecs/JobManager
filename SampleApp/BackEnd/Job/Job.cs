@@ -22,7 +22,7 @@
         public int EngineerID { get; set; }
         public required DateOnly Date { get; set; }
         public required string Description { get; set; }
-        public decimal Cost { get; set; }
+        public decimal Amount { get; set; }
 
         protected Job() { }
 
@@ -39,6 +39,10 @@
         public void AddCertificate(JobCertificates certificate)
         {
             _JobCertificates.Add(certificate);
+        }
+        public void RemoveCertificate(JobCertificates certificate)
+        {
+            _JobCertificates.Remove(certificate);
         }
     }
 }
