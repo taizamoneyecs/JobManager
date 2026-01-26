@@ -2,8 +2,18 @@
 {
     public class Wage
     {
-        public required int ID { get; set; }
-        public required int EngineerID { get; set; }
+        public int ID { get; private set; }
+        public int EngineerID { get; private set; }
         public required decimal HourlyRate { get; set; }
+
+        protected Wage() { }
+
+        public Wage(int engineerID, decimal hourlyRate)
+        {
+            EngineerID = engineerID;
+            HourlyRate = hourlyRate;
+        }
+
+        
     }
 }

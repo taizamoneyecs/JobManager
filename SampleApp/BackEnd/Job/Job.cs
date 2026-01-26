@@ -2,7 +2,9 @@
 {
     public class Job
     {
-        public required int ID { get; set; }
+        private readonly List<JobCertificates> _JobCertificates = new();
+        public IReadOnlyList<JobCertificates> JobCertificates => _JobCertificates.AsReadOnly();
+        public int ID { get; private set; }
         public required int JobTypeID { get; set; }
 
         public enum JobStatus
@@ -21,5 +23,22 @@
         public required DateOnly Date { get; set; }
         public required string Description { get; set; }
         public decimal Cost { get; set; }
+
+        protected Job() { }
+
+        public Job(int jobTypeID, int clientID, int siteID, DateOnly date, string description)
+        {
+            JobTypeID = jobTypeID;
+            ClientID = clientID;
+            SiteID = siteID;
+            Date = date;
+            Description = description;
+            Status = JobStatus.Pending;
+        }
+
+        public void AddCertificate(JobCertificates certificate)
+        {
+            _JobCertificates.Add(certificate);
+        }
     }
 }

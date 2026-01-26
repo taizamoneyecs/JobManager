@@ -2,9 +2,9 @@
 {
     public class JobCertificates
     {
-        public required int ID { get; set; }
-        public required int JobID { get; set; }
-        public required int EngineerID { get; set; }
+        public int ID { get;private set; }
+        public int JobID { get; private set; }
+        public int EngineerID { get; private set; }
         public enum CertificateName { 
             MWC, 
             EIC, 
@@ -13,7 +13,17 @@
             PartF,
             PIBI
         }
+
         public required CertificateName Name { get; set; }
         public required DateTime ExpiryDate { get; set; }
+
+        protected JobCertificates() { }
+        public JobCertificates(int jobID, int engineerID, CertificateName name, DateTime expiryDate)
+        {
+            JobID = jobID;
+            EngineerID = engineerID;
+            Name = name;
+            ExpiryDate = expiryDate;
+        }
     }
 }

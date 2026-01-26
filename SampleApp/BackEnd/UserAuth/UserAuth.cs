@@ -2,7 +2,7 @@
 {
     public class UserAuth
     {
-        public required int ID { get; set; }
+        public int ID { get; private set; }
         public required string Email { get; set; }
         public enum UserRole
         {
@@ -12,5 +12,14 @@
             Manager
         }
         public required UserRole Role { get; set; }
+
+        protected UserAuth() { }
+        public UserAuth(string email, UserRole role)
+        {
+            Email = email;
+            Role = role;
+        }
+        
+        
     }
 }
