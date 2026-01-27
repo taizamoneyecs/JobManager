@@ -1,4 +1,4 @@
-﻿namespace BackEnd.Invoice
+﻿namespace BackEnd.Domain.Invoice
 {
     public class Invoice
     {
@@ -19,6 +19,22 @@
             Paid = false;
         }
 
+        public void MarkAsPaid()
+        {
+            Paid = true;
+        }
+
+        public void UpdateAmount(decimal amount)
+        {
+            Amount = amount;
+        }
+
+        public void UpdateDate(DateOnly date)
+        {
+            Date = date;
+        }
+
         
+
     }
 }

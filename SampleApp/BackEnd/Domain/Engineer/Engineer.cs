@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace BackEnd.Engineer
+namespace BackEnd.Domain.Engineer
 {
     public class Engineer
     {
@@ -27,7 +27,18 @@ namespace BackEnd.Engineer
             Name = name;
             Email = email;
             Number = number;
-            Type = EngineerType.WetWork;
+            
+        }
+
+        public void UpdateContactInfo(string email, long number)
+        {
+            Email = email;
+            Number = number;
+        }
+
+        public void assignEngineerType(EngineerType type)
+        {
+            Type = type;
         }
     }
 }

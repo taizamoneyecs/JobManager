@@ -1,6 +1,6 @@
-﻿using static BackEnd.Job.JobCertificates;
+﻿using static BackEnd.Domain.Job.JobCertificates;
 
-namespace BackEnd.JobType
+namespace BackEnd.Domain.JobType
 {
     public class JobType
 
@@ -25,6 +25,7 @@ namespace BackEnd.JobType
             _certificateRequired.Remove(certificate);
         }
 
+       
 
 
     }

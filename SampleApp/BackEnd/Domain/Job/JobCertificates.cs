@@ -1,4 +1,4 @@
-﻿namespace BackEnd.Job
+﻿namespace BackEnd.Domain.Job
 {
     public class JobCertificates
     {
@@ -25,5 +25,21 @@
             Name = name;
             ExpiryDate = expiryDate;
         }
+
+        public bool IsExpired()
+        {
+            return DateTime.Now > ExpiryDate;
+        }
+
+        public void AssignCertificateToJob(int jobID)
+        {
+            JobID = jobID;
+        }
+        public void AssignCertificateToEngineer(int engineerID)
+        {
+            EngineerID = engineerID;
+        }
+
+
     }
 }

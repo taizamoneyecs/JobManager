@@ -1,4 +1,4 @@
-﻿namespace BackEnd.UserAuth
+﻿namespace BackEnd.Domain.UserAuth
 {
     public class UserAuth
     {
@@ -19,7 +19,19 @@
             Email = email;
             Role = role;
         }
+
+        public void UpdateEmail(string email)
+        {
+            Email = email;
+        }
+
+        public void UpdateRole(UserRole role)
+        {
+            Role = role;
+        }
+
         
-        
+
+
     }
 }

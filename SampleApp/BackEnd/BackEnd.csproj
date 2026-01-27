@@ -12,16 +12,4 @@
     <PackageReference Include="Scalar.AspNetCore" Version="2.*" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Job\" />
-    <Folder Include="Client\" />
-    <Folder Include="Engineer\" />
-    <Folder Include="JobType\" />
-    <Folder Include="Invoice\" />
-    <Folder Include="Wage\" />
-    <Folder Include="UserAuth\" />
-    <Folder Include="Site\" />
-	
-  </ItemGroup>
-
 </Project>

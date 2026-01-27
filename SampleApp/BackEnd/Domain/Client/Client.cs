@@ -1,4 +1,6 @@
-﻿namespace BackEnd.Client
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace BackEnd.Domain.Client
 {
     public class Client
     {
@@ -28,7 +30,28 @@
         {
             _Sites.Remove(site);
         }
+        public void UpdateContactInfo(string email, long number)
+        {
+            Email = email;
+            Number = number;
+        }
 
+     
+        public void UpdateSiteAddress(int siteID, string newAddress)
+        {
+            var site = _Sites.Find(s => s.ID == siteID);
+            if (site != null)
+            {
+                // Assuming Site has a method to update its address
+                site.UpdateAddress(newAddress);
+            }
+        }
+
+
+        public List<Site> GetAllSites()
+        {
+            return _Sites;
+        }
     }
     public class Site
     {
@@ -44,7 +67,11 @@
             ClientID = clientID;
             Address = address;
         }
+        public void UpdateAddress(string newAddress)
+        {
+            Address = newAddress;
+        }
 
-        
+     
     }
 }
