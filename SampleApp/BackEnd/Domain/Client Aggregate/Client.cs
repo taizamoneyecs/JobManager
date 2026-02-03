@@ -2,7 +2,7 @@
 
 namespace BackEnd.Domain.Client
 {
-    public class Client
+    public class Client 
     {
 
         public Guid ID { get; private set; }

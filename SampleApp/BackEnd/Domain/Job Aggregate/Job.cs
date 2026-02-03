@@ -29,6 +29,9 @@ namespace BackEnd.Domain.Job
         public required Guid SiteID { get; set; }
         public Guid? EngineerID { get; set; }
         public DateOnly? ScheduledDate { get; set; }
+
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public required Description Desc { get; set; }
         public Money? Amount { get; set; }
 
@@ -39,6 +42,7 @@ namespace BackEnd.Domain.Job
            
             ClientID = clientID; 
             SiteID = siteID;
+            ScheduledDate = scheduledDate;
             Desc = desc;
             Status = JobStatus.Raised;
         }

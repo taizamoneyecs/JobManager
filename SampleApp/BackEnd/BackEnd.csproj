@@ -13,7 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Domain Services\" />
+    <Folder Include="Application\Application Services\" />
+    <Folder Include="Domain\Domain Events\" />
+    <Folder Include="Infrastructure\Repository Implementations\" />
   </ItemGroup>
 
 </Project>
