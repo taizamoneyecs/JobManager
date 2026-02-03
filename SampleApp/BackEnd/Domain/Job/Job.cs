@@ -5,10 +5,10 @@ namespace BackEnd.Domain.Job
     public class Job 
     {
         public Guid ID { get; private set; }
-        public required Guid JobTypeID { get; set; }
 
         public enum JobStatus
         {
+            Raised,
             Pending,
             Approved,
             Assigned,
@@ -28,7 +28,7 @@ namespace BackEnd.Domain.Job
         public required Guid ClientID { get; set; }
         public required Guid SiteID { get; set; }
         public Guid? EngineerID { get; set; }
-        public required DateOnly ScheduledDate { get; set; }
+        public DateOnly? ScheduledDate { get; set; }
         public required Description Desc { get; set; }
         public Money? Amount { get; set; }
 
@@ -36,12 +36,11 @@ namespace BackEnd.Domain.Job
 
         public Job(Guid jobTypeID, Guid clientID, Guid siteID, DateOnly scheduledDate, Description desc)
         {
-            JobTypeID = jobTypeID;
+           
             ClientID = clientID; 
             SiteID = siteID;
-            ScheduledDate = scheduledDate;
             Desc = desc;
-            Status = JobStatus.Pending;
+            Status = JobStatus.Raised;
         }
 
        
