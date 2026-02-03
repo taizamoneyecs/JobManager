@@ -27,21 +27,5 @@
                 return false;
             }
         }
-        public override string ToString()
-        {
-            return Value;
-        }
-        public override bool Equals(object? obj)
-        {
-            if (obj is Email other)
-            {
-                return Value == other.Value;
-            }
-            return false;
-        }
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Value);
-        }
-    }
+     
 }

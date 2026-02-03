@@ -2,8 +2,7 @@
 {
     public class UserAuth
     {
-        public int ID { get; private set; }
-        public required string Email { get; set; }
+        public Guid ID { get; private set; }
         public enum UserRole
         {
             Admin,
@@ -14,24 +13,11 @@
         public required UserRole Role { get; set; }
 
         protected UserAuth() { }
-        public UserAuth(string email, UserRole role)
-        {
-            Email = email;
-            Role = role;
-        }
-
-        public void UpdateEmail(string email)
-        {
-            Email = email;
-        }
-
-        public void UpdateRole(UserRole role)
+        public UserAuth(UserRole role)
         {
             Role = role;
         }
 
-        
-
-
+      
     }
-}
+    }

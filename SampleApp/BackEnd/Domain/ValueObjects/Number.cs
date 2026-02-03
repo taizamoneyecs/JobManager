@@ -11,21 +11,6 @@
             }
             Value = value;
         }
-        public override string ToString()
-        {
-            return Value.ToString();
-        }
-        public override bool Equals(object? obj)
-        {
-            if (obj is Number other)
-            {
-                return Value == other.Value;
-            }
-            return false;
-        }
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Value);
-        }
+       
     }
 }

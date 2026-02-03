@@ -12,4 +12,8 @@
     <PackageReference Include="Scalar.AspNetCore" Version="2.*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\Domain Services\" />
+  </ItemGroup>
+
 </Project>

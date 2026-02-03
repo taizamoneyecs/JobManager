@@ -1,11 +1,11 @@
-﻿namespace BackEnd.Domain.Job
+﻿using BackEnd.Domain.ValueObjects;
+
+namespace BackEnd.Domain.Job
 {
-    public class Job
+    public class Job 
     {
-        private readonly List<JobCertificates> _JobCertificates = new();
-        public IReadOnlyList<JobCertificates> JobCertificates => _JobCertificates.AsReadOnly();
-        public int ID { get; private set; }
-        public required int JobTypeID { get; set; }
+        public Guid ID { get; private set; }
+        public required Guid JobTypeID { get; set; }
 
         public enum JobStatus
         {
@@ -17,92 +17,30 @@
             Cancelled
         }
         public required JobStatus Status { get; set; }
-        public required int ClientID { get; set; }
-        public required int SiteID { get; set; }
-        public int EngineerID { get; set; }
-        public required DateOnly Date { get; set; }
-        public required string Description { get; set; }
-        public decimal Amount { get; set; }
+
+        public enum JobCategory
+        {
+            Renewable,
+            Electrical,
+            Gas,
+        }
+        public JobCategory? Category { get; set; }
+        public required Guid ClientID { get; set; }
+        public required Guid SiteID { get; set; }
+        public Guid? EngineerID { get; set; }
+        public required DateOnly ScheduledDate { get; set; }
+        public required Description Desc { get; set; }
+        public Money? Amount { get; set; }
 
         protected Job() { }
 
-        public Job(int jobTypeID, int clientID, int siteID, DateOnly date, string description)
+        public Job(Guid jobTypeID, Guid clientID, Guid siteID, DateOnly scheduledDate, Description desc)
         {
             JobTypeID = jobTypeID;
-            ClientID = clientID;
+            ClientID = clientID; 
             SiteID = siteID;
-            Date = date;
-            Description = description;
-            Status = JobStatus.Pending;
-        }
-
-        public void AddCertificate(JobCertificates certificate)
-        {
-            _JobCertificates.Add(certificate);
-        }
-        public void RemoveCertificate(JobCertificates certificate)
-        {
-            _JobCertificates.Remove(certificate);
-        }
-        public void AssignEngineer(int engineerID)
-        {
-            EngineerID = engineerID;
-            Status = JobStatus.Assigned;
-        }
-
-        public void UpdateStatus(JobStatus status)
-        {
-            Status = status;
-        }
-
-        public void UpdateAmount(decimal amount)
-        {
-            Amount = amount;
-        }
-
-        public void UpdateDescription(string description)
-        {
-            Description = description;
-        }
-
-        public void UpdateDate(DateOnly date)
-        {
-            Date = date;
-        }   
-
-        public void UpdateJobType(int jobTypeID)
-        {
-            JobTypeID = jobTypeID;
-        }
-
-        public void CancelJob()
-        {
-            Status = JobStatus.Cancelled;
-        }
-
-        public void CompleteJob()
-        {
-            Status = JobStatus.Completed;
-        }
-
-        public void StartJob()
-        {
-            Status = JobStatus.InProgress;
-        }
-
-        public void ApproveJob()
-        {
-            Status = JobStatus.Approved;
-        }
-
-        public void MarkPending()
-        {
-            Status = JobStatus.Pending;
-        }
-
-        public void UnassignEngineer()
-        {
-            EngineerID = 0;
+            ScheduledDate = scheduledDate;
+            Desc = desc;
             Status = JobStatus.Pending;
         }
 

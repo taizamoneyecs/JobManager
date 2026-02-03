@@ -1,40 +1,42 @@
-﻿namespace BackEnd.Domain.Invoice
+﻿
+using BackEnd.Domain.Client;
+using BackEnd.Domain.ValueObjects;
+
+namespace BackEnd.Domain.Invoice
 {
     public class Invoice
     {
-        public  int ID { get; private set; }
-        public int ClientID { get; private set; }
-        public int JobID { get; private set; }
-        public required DateOnly Date { get; set; }
-        public required decimal Amount { get; set; }
-        public required bool Paid { get; set; }
+        public Guid ID { get; private set; }
+        public required Guid ClientID { get; set; }
+        public required Guid JobID { get; set; }
+        public required DateOnly DateCreated { get; set; }
+        public required Money Amount { get; set; }
+        public enum InvoiceStatus {
+            Pending,
+            Issued,
+            Paid,
+            Overdue
+
+        }
+
+        public required InvoiceStatus Status { get; set; }
 
         protected Invoice() { }
-        public Invoice(int clientID, int jobID, DateOnly date, decimal amount)
+        public Invoice(Guid clientID, Guid jobID, DateOnly dateCreated, Money amount)
         {
             ClientID = clientID;
             JobID = jobID;
-            Date = date;
+            DateCreated = dateCreated;
             Amount = amount;
-            Paid = false;
-        }
-
-        public void MarkAsPaid()
-        {
-            Paid = true;
-        }
-
-        public void UpdateAmount(decimal amount)
-        {
-            Amount = amount;
-        }
-
-        public void UpdateDate(DateOnly date)
-        {
-            Date = date;
+            Status = InvoiceStatus.Pending;
         }
 
         
+
+
+
+
+
 
     }
 }

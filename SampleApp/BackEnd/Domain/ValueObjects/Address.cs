@@ -1,6 +1,6 @@
 ﻿namespace BackEnd.Domain.ValueObjects
 {
-    public class Address
+    public record Address
     {
         public string Street { get; }
         public string City { get; }
@@ -30,28 +30,7 @@
             Country = country;
             PostCode = postCode;
         }
-        public override string ToString()
-        {
-            return $"{Street}, {City}, {Country}, {PostCode}";
-        }
-
-        public override bool Equals(object? obj)
-        {
-            if (obj is Address other)
-            {
-                return Street == other.Street &&
-                       City == other.City &&
-                       Country == other.Country &&
-                       PostCode == other.PostCode;
-            }
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Street, City, Country, PostCode);
-        }
-
+       
         
     }
 }

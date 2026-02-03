@@ -5,7 +5,7 @@ namespace BackEnd.Domain.Engineer
 {
     public class Engineer
     {
-        public int ID { get; private set; }
+        public Guid ID { get; private set; }
         public required string Name { get; set; }
 
         public enum EngineerType
@@ -16,7 +16,7 @@ namespace BackEnd.Domain.Engineer
             Electrical,
             CoreDrilling
         }
-        public required EngineerType Type { get; set; }
+        public EngineerType Type { get;private set; }
         public required string Email { get; set; }
         public required long Number { get; set; }
 
@@ -24,21 +24,13 @@ namespace BackEnd.Domain.Engineer
 
         public Engineer(string name,string email, long number)
         {
+            ID = Guid.NewGuid();
             Name = name;
             Email = email;
             Number = number;
             
         }
 
-        public void UpdateContactInfo(string email, long number)
-        {
-            Email = email;
-            Number = number;
-        }
-
-        public void assignEngineerType(EngineerType type)
-        {
-            Type = type;
-        }
+        
     }
 }
