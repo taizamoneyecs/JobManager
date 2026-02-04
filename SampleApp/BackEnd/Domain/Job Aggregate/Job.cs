@@ -28,16 +28,16 @@ namespace BackEnd.Domain.Job
         public required Guid ClientID { get; set; }
         public required Guid SiteID { get; set; }
         public Guid? EngineerID { get; set; }
-        public DateOnly? ScheduledDate { get; set; }
+        public DateOnly ScheduledDate { get; set; }
 
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public required Description Desc { get; set; }
-        public Money? Amount { get; set; }
+        public required string Desc { get; set; }
+        public decimal? Amount { get; set; }
 
         protected Job() { }
 
-        public Job(Guid jobTypeID, Guid clientID, Guid siteID, DateOnly scheduledDate, Description desc)
+        public Job(Guid jobTypeID, Guid clientID, Guid siteID, DateOnly scheduledDate, string desc)
         {
            
             ClientID = clientID; 

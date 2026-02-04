@@ -7,6 +7,7 @@
         public string Country { get; }
         public string PostCode { get; }
 
+       
         public Address(string street, string city, string country, string postCode)
         {
             if (string.IsNullOrWhiteSpace(street))

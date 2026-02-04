@@ -10,7 +10,7 @@ namespace BackEnd.Domain.Invoice
         public required Guid ClientID { get; set; }
         public required Guid JobID { get; set; }
         public required DateOnly DateCreated { get; set; }
-        public required Money Amount { get; set; }
+        public required decimal Amount { get; set; }
         public enum InvoiceStatus {
             Pending,
             Issued,
@@ -22,7 +22,7 @@ namespace BackEnd.Domain.Invoice
         public required InvoiceStatus Status { get; set; }
 
         protected Invoice() { }
-        public Invoice(Guid clientID, Guid jobID, DateOnly dateCreated, Money amount)
+        public Invoice(Guid clientID, Guid jobID, DateOnly dateCreated, decimal amount)
         {
             ClientID = clientID;
             JobID = jobID;

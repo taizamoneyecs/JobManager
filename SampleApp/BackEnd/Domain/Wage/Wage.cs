@@ -5,18 +5,21 @@ namespace BackEnd.Domain.Wage
     public class Wage
     {
         public int ID { get; private set; }
-        public int EngineerID { get; private set; }
-        public required Money HourlyRate { get; set; }
+        public Guid EngineerID { get; private set; }
+
+        public required decimal Amount { get; set; }
+        public required decimal HourlyRate { get; set; }
 
         protected Wage() { }
 
-        public Wage(int engineerID, Money hourlyRate)
+        public Wage(Guid engineerID, decimal hourlyRate, decimal amount)
         {
             EngineerID = engineerID;
             HourlyRate = hourlyRate;
+            Amount = amount;
         }
 
 
-       
+
     }
 }

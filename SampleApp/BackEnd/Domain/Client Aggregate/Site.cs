@@ -10,11 +10,11 @@ namespace BackEnd.Domain.Client.Site
 
         public Guid ID { get; private set; }
         public Guid ClientID { get; set; }
-        public required Address Address { get; set; }
+        public required string Address { get; set; }
 
         protected Site() { }
 
-        public Site(Guid clientID, Address address)
+        public Site(Guid clientID, string address)
                 {
                     ID = Guid.NewGuid();
                     ClientID = clientID;
