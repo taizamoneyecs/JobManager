@@ -5,7 +5,7 @@
         IQueryable<Invoice> GetAllInvoices();
         IQueryable<Invoice> GetInvoicesByID(Guid id);
         IQueryable<Invoice> GetInvoicesByClientID(Guid clientId);
-        IQueryable<Invoice> GetInvoicesByDateCreated(DateOnly date);
+        IQueryable<Invoice> GetInvoicesByDateCreated(DateTime date);
 
         Task AddAsync(Invoice entity);
         Task DeleteAsync(Invoice entity);

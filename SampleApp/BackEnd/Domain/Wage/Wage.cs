@@ -4,7 +4,7 @@ namespace BackEnd.Domain.Wage
 {
     public class Wage
     {
-        public int ID { get; private set; }
+        public Guid ID { get; private set; }
         public Guid EngineerID { get; private set; }
 
         public required decimal Amount { get; set; }

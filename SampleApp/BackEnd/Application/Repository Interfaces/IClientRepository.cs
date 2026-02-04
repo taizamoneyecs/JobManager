@@ -7,6 +7,7 @@ namespace BackEnd.Application.Repository_Interfaces
         
         IQueryable<Client> GetClientsByName(string name);
         IQueryable<Client> GetClientsbyID(Guid id);
+        
         IQueryable<Site> GetSitesByClientID(Guid clientId);
 
 
