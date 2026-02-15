@@ -43,7 +43,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-  
+app.MapGet("/", () => "Welcome to the BackEnd API!");
+
+
 app.Run("http://localhost:5000");
 
 

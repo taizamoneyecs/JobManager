@@ -1,73 +1,96 @@
 ﻿using BackEnd.Application.Repository_Interfaces;
 using BackEnd.Domain.Job;
 using BackEnd.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace BackEnd.Infrastructure.Repository_Implementations
 {
-    public class JobRepository : IJobRepository<Job>, IDisposable 
+    public class JobRepository : IJobRepository 
     {
         private readonly AppDbContext _context;
         public JobRepository(AppDbContext context)
         {
             _context = context;
         }
-        public IQueryable<Job> GetJobsbyID(Guid id)
+        public async Task AddAsync(Job job)
         {
-            return _context.Jobs.Where(j => j.ID == id);
-        }
-        public IQueryable<Job> GetJobsByClientId(Guid clientId)
-        {
-            return _context.Jobs.Where(j => j.ClientID == clientId);
-        }
-        public IQueryable<Job> GetJobsByEngineerId(Guid engineerId)
-        {
-            return _context.Jobs.Where(j => j.EngineerID == engineerId);
-        }
-        public IQueryable<Job> GetJobsByStatus(Expression<Func<Job, bool>> statusExpression)
-        {
-            return _context.Jobs.Where(statusExpression);
-        }
-        public IQueryable<Job> GetAllJobsByCategory(Expression<Func<Job, bool>> categoryExpression)
-        {
-            return _context.Jobs.Where(categoryExpression);
-        }
-  
-        public async Task AddAsync(Job entity)
-        {
-            await _context.Jobs.AddAsync(entity);
+            _context.Jobs.Add(job);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteAsync(Job entity)
+        public async Task DeleteAsync(Guid id)
         {
-            _context.Jobs.Remove(entity);
+            var job = await _context.Jobs.FindAsync(id);
+            if (job != null)
+            {
+                _context.Jobs.Remove(job);
+                await _context.SaveChangesAsync();
+            }
+        }
+        public async Task UpdateAsync(Job job)
+        {
+            _context.Jobs.Update(job);
             await _context.SaveChangesAsync();
         }
-        public async Task UpdateAsync(Job entity)
+        public async Task<List<Job>> GetAllAsync()
         {
-            _context.Jobs.Update(entity);
-            await _context.SaveChangesAsync();
+            return await _context.Jobs.ToListAsync();
+        }
+
+        public async Task<Job?> GetJobsbyIDAsync(Guid id)
+        {
+            return await _context.Jobs.FindAsync(id);
+        }
+
+        public async Task<List<Job>> GetJobsbySiteIdAsync(Guid siteId)
+        {
+            var jobs = await _context.Jobs
+                .Where(j => j.SiteId == siteId)
+                .ToListAsync();
+            return jobs;
+
+        }
+        public async Task<List<Job>> GetJobsByClientIdAsync(Guid clientId)
+        {
+            var jobs = await _context.Jobs
+                .Where(j => j.ClientId == clientId)
+                .ToListAsync();
+            return jobs;
+        }
+        public async Task<List<Job>> GetJobsByEngineerIdAsync(Guid engineerId)
+        {
+            var jobs = await _context.Jobs
+                .Where(j => j.EngineerId == engineerId)
+                .ToListAsync();
+            return jobs;
+        }
+        public async Task<List<Job>> GetJobsByStatusAsync(Expression<Func<Job, bool>> statusExpression)
+        {
+            var jobs = await _context.Jobs
+                .Where(statusExpression)
+                .ToListAsync();
+            return jobs;
+        }
+        public async Task<List<Job>> GetAllJobsByCategoryAsync(Expression<Func<Job, bool>> categoryExpression)
+        {
+            var jobs = await _context.Jobs
+                .Where(categoryExpression)
+                .ToListAsync();
+            return jobs;
         }
         public async Task AddJobCertificateAsync(JobCertificates jobCertificate)
         {
-            await _context.JobCertificates.AddAsync(jobCertificate);
+            _context.JobCertificates.Add(jobCertificate);
             await _context.SaveChangesAsync();
         }
+
         public async Task DeleteJobCertificateAsync(JobCertificates jobCertificate)
         {
             _context.JobCertificates.Remove(jobCertificate);
             await _context.SaveChangesAsync();
         }
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
 
-        public IQueryable<JobCertificates> GetJobCertificatesByJobCategory(Job jobCategory)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -6,42 +6,48 @@ using System.Linq;
 using System.Linq.Expressions;
 namespace BackEnd.Infrastructure.Repository_Implementations
 {
-    public class WageRepository : IWageRepository<Wage>, IDisposable
+    public class WageRepository : IWageRepository
     {
         readonly AppDbContext _context;
         public WageRepository(AppDbContext context)
         {
             _context = context;
         }
-        public IQueryable<Wage> GetWagesByID(Guid id)
+        public async Task AddAsync(Wage wage)
         {
-            return _context.Wages.Where(w => w.ID == id);
-            
+            _context.Wages.Add(wage);
+            await _context.SaveChangesAsync();
+
         }
-        public IQueryable<Wage> GetWagesByEngineerID(Guid engineerId)
+        public async Task DeleteAsync(Guid id)
         {
-            return _context.Wages.Where(w => w.EngineerID == engineerId);
+            var wage = await _context.Wages.FindAsync(id);
+            if (wage != null)
+            {
+                _context.Wages.Remove(wage);
+                await _context.SaveChangesAsync();
+            }
         }
-       
-        public async Task AddAsync(Wage entity)
+        public async Task UpdateAsync(Wage wage)
         {
-            await _context.Wages.AddAsync(entity);
+            _context.Wages.Update(wage);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteAsync(Wage entity)
+
+
+        public async Task<Wage?> GetWageByIDAsync(Guid id)
         {
-            _context.Wages.Remove(entity);
-            await _context.SaveChangesAsync();
+            return await _context.Wages.FindAsync(id);
         }
-        public async Task UpdateAsync(Wage entity)
+
+        public async Task<List<Wage>> GetWagesByEngineerIDAsync(Guid engineerId)
         {
-            _context.Wages.Update(entity);
-            await _context.SaveChangesAsync();
+            var wages = await _context.Wages
+                .Where(w => w.EngineerId == engineerId)
+                .ToListAsync();
+            return wages;
         }
-        public void Dispose()
-        {
-            ((IDisposable)_context).Dispose();
-        }
+
 
     }
 }

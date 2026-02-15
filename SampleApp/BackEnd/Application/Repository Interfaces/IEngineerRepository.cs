@@ -1,19 +1,20 @@
-﻿using BackEnd.Domain.Job;
-using System.Linq.Expressions;
+﻿
+using BackEnd.Domain.Engineer
+
 
 namespace BackEnd.Application.Repository_Interfaces
 {
-    public interface IEngineerRepository <Engineer> : IDisposable where Engineer : class
+    public interface IEngineerRepository 
     {
-        IQueryable<Engineer> GetEngineersByID(Guid id);
-        IQueryable<Engineer> GetEngineersByName(string name);
-        IQueryable<Engineer> GetEngineersByType(Expression<Func<Engineer, bool>> typeExpression);
+        Task AddAsync(Engineer engineer);
+        Task DeleteAsync(Engineer id);
+        Task UpdateAsync(Engineer engineer);
+        
+        Task<List<Engineer>> GetByNameAsync(string name);
+        Task<List<Engineer>> GetbyTypeAsync(Expression<Func<Engineer, bool>> typeExpression);
+        Task<List<Engineer>> GetAllAsync();
 
-        Task AddAsync(Engineer entity);
-        Task DeleteAsync(Engineer entity);
-        Task UpdateAsync(Engineer entity);
-
-
+       
 
     }
 }

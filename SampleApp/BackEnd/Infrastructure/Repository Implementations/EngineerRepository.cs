@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace BackEnd.Infrastructure.Repository_Implementations
 {
-    public class EngineerRepository : IEngineerRepository<Engineer>, IDisposable
+    public class EngineerRepository : IEngineerRepository
 
     {
         private readonly AppDbContext _context;
@@ -16,39 +16,50 @@ namespace BackEnd.Infrastructure.Repository_Implementations
         {
             _context = context;
         }
-        public IQueryable<Engineer> GetEngineersByID(Guid id)
+
+        public async Task AddAsync(Engineer engineer)
         {
-            return _context.Engineers.Where(e => e.ID == id);
+            _context.Engineers.Add(engineer);
+            await _context.SaveChangesAsync();
+        }
+        public async Task DeleteAsync(Guid id)
+        {
+            var engineer = await _context.Engineers.FindAsync(id);
+            if (engineer != null)
+            {
+                _context.Engineers.Remove(engineer);
+                await _context.SaveChangesAsync();
+
+            }
+        }
+        public async Task UpdateAsync(Engineer engineer)
+        {
+            _context.Engineers.Update(engineer);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<Engineer>> GetByNameAsync(string name)
+        {
+            var engineer = await _context.Engineers
+                .Where(e => e.Name == name)
+                .ToListAsync();
+            return engineer;
+        }
+
+        public async Task<List<Engineer>> GetbyTypeAsync(Expression<Func<Engineer, bool>> typeExpression)
+        {
+            var engineer = await _context.Engineers
+                .Where(typeExpression)
+                .ToListAsync();
+                return engineer;
 
         }
-        public IQueryable<Engineer> GetEngineersByName(string name)
+        public async Task<List<Engineer>> GetAllAsync()
         {
-            return _context.Engineers.Where(e => e.Name == name);
-        }
-        public IQueryable<Engineer> GetEngineersByType(Expression<Func<Engineer, bool>> typeExpression)
-        {
-            return _context.Engineers.Where(typeExpression);
-        }
-        
-        public async Task AddAsync(Engineer entity)
-        {
-            await _context.Engineers.AddAsync(entity);
-            await _context.SaveChangesAsync();
+            return await _context.Engineers.ToListAsync();
         }
 
-        public async Task DeleteAsync(Engineer entity)
-        {
-            _context.Engineers.Remove(entity);
-            await _context.SaveChangesAsync();
-        }
-        public async Task UpdateAsync(Engineer entity)
-        {
-            _context.Engineers.Update(entity);
-            await _context.SaveChangesAsync();
-        }
-        public void Dispose()
-        {
-            ((IDisposable)_context).Dispose();
-        }
+          
+
     }
 }

@@ -1,12 +1,15 @@
-﻿namespace BackEnd.Application.Repository_Interfaces
+﻿using BackEnd.Domain.Wage
+namespace BackEnd.Application.Repository_Interfaces
 {
-    public interface IWageRepository<Wage> : IDisposable where Wage : class
+    public interface IWageRepository
     {
-        IQueryable<Wage> GetWagesByID(Guid id);
-        IQueryable<Wage> GetWagesByEngineerID(Guid engineerId);
+        Task AddAsync(Wage wage);
+        Task DeleteAsync(Wage wage);
+        Task UpdateAsync(Wage wage);
+
+        Task<Wage?> GetWagesByID(Guid id);
+        Task<List<Wage>> GetWagesByEngineerID(Guid engineerId);
         
-        Task AddAsync(Wage entity);
-        Task DeleteAsync(Wage entity);
-        Task UpdateAsync(Wage entity);
+        
     }
 }

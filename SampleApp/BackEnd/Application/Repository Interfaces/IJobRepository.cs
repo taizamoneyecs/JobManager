@@ -1,4 +1,5 @@
 ﻿using BackEnd.Domain.Job;
+using BackEnd.Domain.Job.JobCertficates;
 
 using System;
 using System.Linq;
@@ -6,25 +7,24 @@ using System.Linq.Expressions;
 
 namespace BackEnd.Application.Repository_Interfaces
 {
-    public interface IJobRepository<Job> : IDisposable where Job : class
+    public interface IJobRepository
     {
-        IQueryable<Job> GetJobsbyID(Guid id);
-        IQueryable<Job> GetJobsByClientId(Guid clientId);
-        IQueryable<Job> GetJobsByEngineerId(Guid engineerId);
-        IQueryable<Job> GetJobsByStatus(Expression<Func<Job, bool>> statusExpression);
-        IQueryable<Job> GetAllJobsByCategory(Expression<Func<Job, bool>> categoryExpression);
+        Task AddAsync(Job job);
+        Task DeleteAsync(Guid job);
+        Task UpdateAsync(Job job);
+        Task<List<Job>> GetAllAsync();
 
-        IQueryable<JobCertificates> GetJobCertificatesByJobCategory(Job jobCategory);
-
-
-        Task AddAsync(Job entity);
-        Task DeleteAsync(Job entity);
-        Task UpdateAsync(Job entity);
+        Task <Job?>GetJobsbyIDAsync(Guid id);
+        Task<List<Job>> GetJobsbySiteIdAsync(Guid siteId);
+        Task<List<Job> GetJobsByClientIdAsync(Guid clientId);
+        Task<List<Job>> GetJobsByEngineerIdAsync(Guid engineerId);
+        Task<List<Job>> GetJobsByStatusAsync(Expression<Func<Job, bool>> statusExpression);
+        Task<List<Job>> GetAllJobsByCategoryAsync(Expression<Func<Job, bool>> categoryExpression);
         Task AddJobCertificateAsync(JobCertificates jobCertificate);
         Task DeleteJobCertificateAsync(JobCertificates jobCertificate);
 
 
     }
+    
 
-       
 }

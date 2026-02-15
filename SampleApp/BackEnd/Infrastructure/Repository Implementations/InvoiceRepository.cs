@@ -1,6 +1,7 @@
 ﻿using BackEnd.Application.Repository_Interfaces;
 using BackEnd.Domain.Invoice;
 using BackEnd.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -8,49 +9,57 @@ using System.Linq.Expressions;
 
 namespace BackEnd.Infrastructure.Repository_Implementations
 {
-    public class InvoiceRepository : IInvoiceRepository<Invoice>, IDisposable
+    public class InvoiceRepository : IInvoiceRepository
     {
         readonly AppDbContext _context;
         public InvoiceRepository(AppDbContext context)
         {
             _context = context;
         }
-        public IQueryable<Invoice> GetInvoicesByID(Guid id)
+        public async Task AddAsync(Invoice invoice)
         {
-            return _context.Invoices.Where(i => i.ID == id);
+            _context.Invoices.Add(invoice);
+            await _context.SaveChangesAsync();
+        }
+        public async Task DeleteAsync(Guid id)
+        {
+            var invoice = await _context.Invoices.FindAsync(id);
+            if (invoice != null)
+            {
+                _context.Invoices.Remove(invoice);
+                await _context.SaveChangesAsync();
+            }
+        }
+        public async Task UpdateAsync(Invoice invoice)
+        {
+            _context.Invoices.Update(invoice);
+            await _context.SaveChangesAsync();
         }
 
-        public IQueryable<Invoice> GetInvoicesByClientID(Guid clientId)
+        public async Task<List<Invoice> GetAllAsync()
         {
-            return _context.Invoices.Where(i => i.ClientID == clientId);
+            return await _context.Invoices.ToListAsync();
         }
-        public IQueryable<Invoice> GetAllInvoices()
+        public async Task<Invoice?> GetInvoiceByIDAsync(Guid id)
         {
-                       return _context.Invoices;
+            return await _context.Invoices.FindAsync(id);
+        }
+        public async Task<List<Invoice>> GetInvoicesByClientIDAsync(Guid clientId)
+        {
+            var invoices = await _context.Invoices
+                .Where(i => i.ClientId == clientId)
+                .ToListAsync();
+            return invoices;
+        }
+        public async Task<List<Invoice>> GetInvoicesByDateCreatedAsync(DateTime date)
+        {
+            var invoices = await _context.Invoices
+                .Where (i => i.DateCreated == date)
+                .ToListAsync();
+            return invoices;
         }
 
-        public IQueryable<Invoice> GetInvoicesByDateCreated(DateTime date)
-        {  
-            return _context.Invoices.Where(i => i.DateCreated == date); 
-        }
-        public async Task AddAsync(Invoice entity)
-        {
-            await _context.Invoices.AddAsync(entity);
-            await _context.SaveChangesAsync();
-        }
-        public async Task DeleteAsync(Invoice entity)
-        {
-            _context.Invoices.Remove(entity);
-            await _context.SaveChangesAsync();
-        }
-        public async Task UpdateAsync(Invoice entity)
-        {
-            _context.Invoices.Update(entity);
-            await _context.SaveChangesAsync();
-        }
-        public void Dispose()
-        {
-            ((IDisposable)_context).Dispose();
-        }
+
     }
+}
 }

@@ -1,15 +1,16 @@
-﻿namespace BackEnd.Application.Repository_Interfaces
+﻿using BackEnd.Domain.Invoice;
+namespace BackEnd.Application.Repository_Interfaces
 {
-    public interface IInvoiceRepository<Invoice> : IDisposable where Invoice : class
+    public interface IInvoiceRepository
     {
-        IQueryable<Invoice> GetAllInvoices();
-        IQueryable<Invoice> GetInvoicesByID(Guid id);
-        IQueryable<Invoice> GetInvoicesByClientID(Guid clientId);
-        IQueryable<Invoice> GetInvoicesByDateCreated(DateTime date);
+        Task AddAsync(Invoice invoice);
+        Task DeleteAsync(Guid id);
+        Task UpdateAsync(Invoice invoice);
 
-        Task AddAsync(Invoice entity);
-        Task DeleteAsync(Invoice entity);
-        Task UpdateAsync(Invoice entity);
+        Task<List<Invoice> GetAllAsync();
+        Task <Invoice?> GetInvoiceByIDAsync(Guid id);
+        Task<List<Invoice>> GetInvoicesByClientIDAsync(Guid clientId);
+        Task<List<Invoice>> GetInvoicesByDateCreatedAsync(DateTime date);
 
 
     }
