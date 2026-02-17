@@ -29,7 +29,9 @@ namespace BackEnd.Domain.Job
         public required Guid SiteID { get; set; }
         public Guid? EngineerID { get; set; }
         public DateOnly ScheduledDate { get; set; }
-
+        public DateTime? RaisedDate { get; set; }
+        public DateTime? ApprovedDate { get; set; }
+        public Guid? ApprovedBy { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public required string Desc { get; set; }
