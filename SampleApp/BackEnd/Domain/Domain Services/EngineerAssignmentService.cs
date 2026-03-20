@@ -10,7 +10,7 @@
             _engineerRepository = engineerRepository;
             _jobRepository = jobRepository;
         }
-        public async Task <List<Engineer>> MatchEngineerToJobCategory(JobCategory jobCategory)
+        public async Task <List<Engineer>> MatchEngineerToJobCategory(JobCategory jobCategory)// one to many 
         {
             var engineer = await _engineerRepository.GetbyTypeAsync()// sort enum classes
 

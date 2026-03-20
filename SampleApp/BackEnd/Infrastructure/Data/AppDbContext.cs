@@ -41,7 +41,7 @@ namespace BackEnd.Infrastructure.Data
                       .HasForeignKey(e => e.ClientID);
 
                 entity.HasOne<Engineer>()
-                      .WithMany()
+                      .WithMany()//map to job type 
                       .HasForeignKey(e => e.EngineerID);
 
                 entity.HasMany<JobCertificates>()

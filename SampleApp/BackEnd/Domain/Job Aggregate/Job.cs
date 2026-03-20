@@ -1,4 +1,6 @@
 ﻿using BackEnd.Domain.ValueObjects;
+using System;
+
 
 namespace BackEnd.Domain.Job
 {

@@ -5,16 +5,16 @@ namespace BackEnd.Domain.Client
     public class Client 
     {
 
-        public Guid ID { get; private set; }
+        public int ClientID { get; private set; }
         public required string Name { get; set; }
         public required string Email { get; set; }
         public required long Number { get; set; }
 
         protected Client() { }
 
-        public Client(string name, string email, long number)
+        public Client(int clientID,string name, string email, long number)
         {
-            ID = Guid.NewGuid();
+            ClientID = clientID;
             Name = name;
             Email = email;
             Number = number;

@@ -1,4 +1,4 @@
-﻿namespace BackEnd.Domain.ValueObjects
+﻿namespace BackEnd.Domain.ValueObjects.Address
 {
     public record Address
     {
