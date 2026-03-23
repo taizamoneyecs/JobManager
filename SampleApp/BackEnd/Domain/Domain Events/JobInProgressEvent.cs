@@ -1,13 +1,20 @@
 ﻿using System;
+using BackEnd.Domain.Job;
 
-public class JobInProgressEvent : DomainEvent
+public class JobInProgressEvent
 {
-	public JobInProgressEvent(Guid jobId, DateTime? inProgressDate) //change to current date time 
-	{
-		JobId = jobId;
-		InProgressDate = inProgressDate;
-	}
-	public Guid JobId { get; }
-	public DateTime? InProgressDate { get; }
+    public int JobID { get; }
+	public DateOnly ScheduledDate { get; }
+	public DateTime StartDate { get; }
 
+
+    public JobInProgressEvent(int jobID, DateOnly scheduledDate, DateTime startDate) 
+	{
+		JobID = jobID;
+		ScheduledDate = scheduledDate;
+		StartDate = startDate;
+	}
+	
 }
+
+

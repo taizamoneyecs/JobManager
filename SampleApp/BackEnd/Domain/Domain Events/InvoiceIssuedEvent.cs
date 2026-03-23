@@ -1,14 +1,24 @@
 ﻿using System;
+using BackEnd.Domain.Invoice;
 
-public class InvoiceIssuedEvent : DomainEvent
+public class InvoiceIssuedEvent 
 {
-	public InvoiceIssuedEvent(Guid invoiceId, Guid jobId,Guid clientID, decimal amount, DateTime issuedDate)
+    public int InvoiceID { get; }
+    public int JobID { get; }
+    public int ClientID { get; }
+    public InvoiceStatus Status { get; }
+    public DateTime DateCreated { get; }
+
+    public InvoiceIssuedEvent(int invoiceID, int jobID, int clientID, InvoiceStatus Status, DateTime DateCreated)
 	{
-		InvoiceId = invoiceId;
-		JobId = jobId;
-		ClientID = clientID;
-        Amount = amount;
-		IssuedDate = issuedDate;
+        InvoiceID = invoiceID;
+        JobID = jobID;
+        ClientID = clientID;
+        Status = Status;
+        DateCreated = DateCreated;
+          
+		
     }
 
 }
+// add wage domain event and job certificate domain event and give all domian event namespaces.

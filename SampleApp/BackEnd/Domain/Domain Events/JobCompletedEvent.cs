@@ -1,11 +1,18 @@
 ﻿using System;
+using BackEnd.Domain.Job;
+using BackEnd.Domain.Engineer;
 
-public class JobCompletedEvent : DomainEvent
+public class JobCompletedEvent 
 {
-	public JobCompletedEvent(Guid jobId, Guid engineerId, DateTime endDate)
+	public int JobID { get; }
+	public int EngineerID { get; }
+	public DateTime EndDate { get; }
+
+    public JobCompletedEvent(int jobID, int engineerId, DateTime endDate)
 	{
-		JobId = jobId;
-		EngineerId = engineerId;
+		JobID = jobID;
+		EngineerID = engineerId;
 		EndDate = endDate;
     }
 }
+

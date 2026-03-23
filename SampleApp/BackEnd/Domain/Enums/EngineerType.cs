@@ -1,7 +1,7 @@
 ﻿using System;
 using BackEnd.Domain.Enums;
 
-namespace BackEnd.Domain.Enums.EngineerType
+namespace BackEnd.Domain.Enums
 {
 
 	public class EngineerType : Enumeration

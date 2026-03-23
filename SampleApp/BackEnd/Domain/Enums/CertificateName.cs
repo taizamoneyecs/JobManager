@@ -1,7 +1,7 @@
 ﻿using System;
 using BackEnd.Domain.Enums;
 
-namespace BackEnd.Domain.Enums.CertificateName
+namespace BackEnd.Domain.Enums
 {
 
 	public class CertificateName : Enumeration
@@ -19,3 +19,4 @@ namespace BackEnd.Domain.Enums.CertificateName
 		}
 	}
 }
+// map to JobCategory

@@ -1,25 +1,34 @@
 ﻿using BackEnd.Domain.ValueObjects;
+using BackEnd.Domain.Engineer;
+using BackEnd.Domain.Enums;
+
 
 namespace BackEnd.Domain.Wage
 {
     public class Wage
     {
-        public Guid ID { get; private set; }
-        public Guid EngineerID { get; private set; }
+        public int WageID { get; private set; }
 
-        public required decimal Amount { get; set; }
-        public required decimal HourlyRate { get; set; }
+        [ForeignKey("Engineer")]
+        public int EngineerID { get; private set; }
+        public Engineer Engineer { get; private set; } // navigation property map to EngineerID in model builder
+
+        public required Balance Salary { get; set; }
+
+        public required WageStatus Status { get; set; }
+
 
         protected Wage() { }
 
-        public Wage(Guid engineerID, decimal hourlyRate, decimal amount)
+        public Wage(int wageID, int EngineerID, Balance salary, WageStatus status)
         {
-            EngineerID = engineerID;
-            HourlyRate = hourlyRate;
-            Amount = amount;
+            WageID = wageID;
+            EngineerID = EngineerID;
+            Balance = new Balance(salary);
+            WageStatus = status;
         }
 
-
+        // map hourly rate to engineer type enum 
 
     }
 }

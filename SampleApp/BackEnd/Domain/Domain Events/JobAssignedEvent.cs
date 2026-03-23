@@ -1,15 +1,18 @@
 ﻿using System;
+using BackEnd.Domain.Engineer;
+using BackEnd.Domain.Job;
 
-public class JobAssignedEvent : DomainEvent
+public class JobAssignedEvent 
 {
-	public JobAssignedEvent(Guid jobId, Guid engineerId, DateTime? assignedDate) 
-	{
-		JobId = jobId;
-		EngineerId = engineerId;
-		AssignedDate = assignedDate;
-	}
-	public Guid JobId { get; }
-	public Guid EngineerId { get; }
-	public DateTime? AssignedDate { get; }
+	public int JobID { get; }
+	public int EngineerID { get; }
+	public DateOnly ScheduledDate { get; }
 
+    public JobAssignedEvent(int jobID, int engineerID, DateOnly scheduledDate) 
+	{
+		JobID = jobID;
+		EngineerID = engineerID;
+		ScheduledDate = scheduledDate;
+	}
+	
 }

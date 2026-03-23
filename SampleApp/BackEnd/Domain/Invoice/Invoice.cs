@@ -1,34 +1,39 @@
-﻿
+﻿using System;
 using BackEnd.Domain.Client;
+using BackEnd.Domain.Job;
+using BackEnd.Domain.Enums;
 using BackEnd.Domain.ValueObjects;
 
 namespace BackEnd.Domain.Invoice
 {
     public class Invoice
     {
-        public Guid ID { get; private set; }
-        public required Guid ClientID { get; set; }
-        public required Guid JobID { get; set; }
+        public int InvoiceID { get; private set; }
+
+        [ForeignKey("ClientID")]
+        public required int ClientID { get; set; }
+        public Client Client { get; set; }  // navigation property - correct in model builder
+
+        [ForeignKey("JobID")]
+        public required int JobID { get; set; }
+        public Job Job { get; set; }  // navigation property - correct in model builder
+
         public required DateTime DateCreated { get; set; }
-        public required decimal Amount { get; set; }
-        public enum InvoiceStatus {
-            Pending,
-            Issued,
-            Paid,
-            Overdue
-
-        }
-
+        public required DateTime? DatePaid { get; set; }
+        public required Balance InvoiceBalance { get; set; }
         public required InvoiceStatus Status { get; set; }
 
         protected Invoice() { }
-        public Invoice(Guid clientID, Guid jobID, DateTime dateCreated, decimal amount)
+
+        public Invoice(int invoiceID, int clientID, int jobID, DateTime dateCreated,DateTime datePaid, Balance InvoiceBalance, InvoiceStatus Status)
         {
+            InvoiceID = invoiceID;
             ClientID = clientID;
             JobID = jobID;
             DateCreated = dateCreated;
-            Amount = amount;
-            Status = InvoiceStatus.Pending;
+            DatePaid = datePaid;
+            Balance = new Balance(InvoiceBalance);
+            InvoiceStatus = Status;
         }
 
         

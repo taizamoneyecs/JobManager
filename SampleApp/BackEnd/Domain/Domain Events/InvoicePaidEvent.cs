@@ -1,17 +1,21 @@
 ﻿using System;
 
-public class InvoicePaidEvent : DomainEvent
+
+using BackEnd.Domain.Invoice;
+
+public class InvoicePaidEvent 
 {
-	public InvoicePaidEvent(Guid invoiceId, Guid jobId,Guid clientId, decimal amount, DateTime paidDate)
+    public int InvoiceID { get; }
+    public InvoiceStatus Status { get; }
+    public DateTime DatePaid { get; }
+   
+
+    public InvoicePaidEvent(int invoiceID, InvoiceStatus status, DateTime DatePaid)
 	{
-		InvoiceId = invoiceId;
-		JobId = jobId;
-		ClientId = clientId;
-        Amount = amount;
-		PaidDate = paidDate;
+        InvoiceID = invoiceID;
+        Status = status;
+        DatePaid = DatePaid;
+        
 	}
-	public Guid InvoiceId { get; }
-	public Guid JobId { get; }
-	public decimal Amount { get; }
-	public DateTime PaidDate { get; }
+	
 }

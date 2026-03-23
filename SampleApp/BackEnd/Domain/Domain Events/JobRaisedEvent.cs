@@ -1,23 +1,33 @@
-using BackEnd.Domain;
+using System;
+using BackEnd.Domain.Client;
+using BackEnd.Domain.Job;
+using BackEnd.Domain.Invoice;
+using BackEnd.Domain.Engineer;
+using BackEnd.Domain.Enums;
+
 namespace BackEnd.Domain.Domain_Events
 {
-	public class JobRaisedEvent : DomainEvent
+	public class JobRaisedEvent 
 	{
-		public JobRaisedEvent(Guid jobId, Guid clientId, Guid siteId, JobCategory Category, string desc)
+        public int JobID { get; }
+        public int ClientID { get; }
+        public int SiteID { get; }
+        public JobCategory Category { get; }
+        public DateOnly ScheduledDate { get; }
+        
+        
+
+        public JobRaisedEvent(int jobID, int clientID, int siteID, JobCategory category, DateOnly scheduledDate)
 		{
-			JobId = jobId;
-			ClientId = clientId;
-			SiteId = siteId;
-			JobCategory = category;
-			Desc = desc;
+			JobID = jobID;
+            ClientID = clientID;
+            SiteID = siteID;
+            JobCategory = category;
+            ScheduledDate = scheduledDate;
+
 
 		}
 
-		public Guid ClientId { get; }
-		public Guid SiteId { get; }
-		public JobCategory category { get; }
-		public DateOnly ScheduledDate { get; }
-		public string desc { get; }
-		public Guid JobId { get; }
+		
 	}
 }

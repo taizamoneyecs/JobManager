@@ -22,6 +22,7 @@
   <ItemGroup>
     <Folder Include="Application\Application Services\" />
     <Folder Include="Domain\Domain Events\" />
+	<Folder Include="Domain\Enums\" />
     <Folder Include="Infrastructure\Repository Implementations\" />
   </ItemGroup>
 

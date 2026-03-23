@@ -1,4 +1,6 @@
 ﻿namespace BackEnd.Domain.UserAuth
+
+    // I might not be using this 
 {
     public class UserAuth
     {
