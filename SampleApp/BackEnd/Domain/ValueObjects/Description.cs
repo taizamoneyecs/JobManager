@@ -1,6 +1,6 @@
 ﻿namespace BackEnd.Domain.ValueObjects
 {
-    public class Description
+    public record Description
     {
         public string Value { get; }
         public Description(string value)

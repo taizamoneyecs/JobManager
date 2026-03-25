@@ -1,7 +1,7 @@
 
 namespace BackEnd.Domain.ValueObjects
 {
-    public class Balance
+    public record Balance
     {
         public decimal Amount { get; private set; }
         protected Balance() { }

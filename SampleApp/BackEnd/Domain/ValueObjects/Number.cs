@@ -5,6 +5,10 @@
         public long Value { get; }
         public Number(long value)
         {
+            if (value == 0)
+            {
+                throw new ArgumentException("Number cannot be zero.", nameof(value));
+            }
             if (value <= 0)
             {
                 throw new ArgumentException("Number must be a positive integer.", nameof(value));
